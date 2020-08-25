@@ -272,9 +272,9 @@ class TbMigrate {
   }
 
   private function migrateItem() {
-    $stmtStr = 'INSERT INTO task (id, title, description, color, due_date, ' .
-      'points, position, column_id) VALUES (:id, :title, :description, :color, ' .
-      ':due_date, :points, :position, :column_id)';
+    $stmtStr = 'INSERT INTO task (id, title, description, color, due_date, creation_date ' .
+      'finish_date, points, position, column_id) VALUES (:id, :title, :description, :color, ' .
+      ':due_date, :creation_date, :finish_date, :points, :position, :column_id)';
 
     $this->migrateTable($stmtStr, function (&$stmt, $row) {
       $stmt->bindValue(':id', $row['id']);
@@ -282,6 +282,8 @@ class TbMigrate {
       $stmt->bindValue(':description', $row['description']);
       $stmt->bindValue(':color', $row['color']);
       $stmt->bindValue(':due_date', $row['due_date']);
+      $stmt->bindValue(':creation_date', $row['creation_date']);
+      $stmt->bindValue(':finish_date', $row['finish_date']);
       $stmt->bindValue(':points', $row['points']);
       $stmt->bindValue(':position', $row['position']);
       $stmt->bindValue(':column_id', $row['lane_id']);

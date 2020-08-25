@@ -109,6 +109,8 @@ class Tasks extends BaseController {
       return $this->jsonResponse($response, 403);
     }
 
+    // set finish_datetime here
+
     $before = R::exportAll($task);
     R::store($update);
     $after= R::exportAll($update);
@@ -290,6 +292,9 @@ class Tasks extends BaseController {
   }
 
   private function alterTask($action, $taskId) {
+    $task = R::load('task', $taskId);
+    $task->finish_datetime = time();
+    R::store($task);
     switch ($action->type) {
     case ActionType::SET_COLOR():
       $task = R::load('task', $taskId);

@@ -31,7 +31,7 @@ CREATE TABLE `autoaction` ( `id` INTEGER PRIMARY KEY AUTOINCREMENT  ,`trigger` I
 						 ON DELETE SET NULL ON UPDATE SET NULL );
 CREATE INDEX index_foreignkey_autoaction_board ON `autoaction` (board_id) ;
 CREATE INDEX index_foreignkey_autoaction_source ON `autoaction` (source_id) ;
-CREATE TABLE `task` ( `id` INTEGER PRIMARY KEY AUTOINCREMENT  ,`title` TEXT,`description` TEXT,`color` TEXT,`due_date` TEXT,`points` INTEGER,`position` INTEGER,`column_id` INTEGER  , FOREIGN KEY(`column_id`)
+CREATE TABLE `task` ( `id` INTEGER PRIMARY KEY AUTOINCREMENT  ,`title` TEXT,`description` TEXT,`color` TEXT,`due_date` TEXT, `creation_date` TEXT, `finish_date` TEXT, `points` INTEGER,`position` INTEGER,`column_id` INTEGER  , FOREIGN KEY(`column_id`)
 						 REFERENCES `column`(`id`)
 						 ON DELETE SET NULL ON UPDATE SET NULL );
 CREATE INDEX index_foreignkey_task_column ON `task` (column_id) ;

@@ -108,6 +108,7 @@ $app->post('/refresh', 'Auth:refreshToken'); // Unsecured (checks and updates JW
 
 $app->get('/dashboard/boards', 'Dashboard:getMyBoardInfo'); // User (by board access)
 $app->get('/dashboard/tasks', 'Dashboard:getMyTaskInfo'); // User (by board access)
+$app->get('/dashboard/burndowndata', 'Dashboard:getBurndownData'); // User (by board access)
 
 $app->run();
 R::close();

@@ -33,6 +33,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public analyticsBoardId: number;
   public burndownDates: BurndownDates;
   public datesError: string;
+  public series: string;
+  public burndownLabels: string;
 
   get showBurndown() {
     return this.burndownDates.start &&
@@ -58,10 +60,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
       stringsService.stringsChanged.subscribe(newStrings => {
         this.strings = newStrings;
 
-        title.setTitle('TaskBoard - ' + this.strings.dashboard);
+        title.setTitle('Flip - ' + this.strings.dashboard);
         this.pageName = this.strings.dashboard;
       })
     );
+    this.service.getBurndownData().subscribe(res => {
+      this.series = '29,26,21,18,13,8,3';
+      this.burndownLabels = '1,2,3,4,5,6,7';
+      console.log('BurndownData');
+      console.log(res.data);
+    });
   }
 
   ngOnInit() {
@@ -91,7 +99,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   validateDates() {
-    if (this.burndownDates.start === null || this.burndownDates.end === null) {
+    /*if (this.burndownDates.start === null || this.burndownDates.end === null) {
       return;
     }
     this.datesError = '';
@@ -113,7 +121,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     if (end > now) {
       this.datesError += ' End date must be today or earlier.';
-    }
+    }*/
   }
 
   updateAnalytics() {

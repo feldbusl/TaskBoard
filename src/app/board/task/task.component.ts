@@ -149,7 +149,8 @@ export class TaskDisplayComponent implements OnInit, OnDestroy {
       this.strings.boards_copyTaskTo.split(' ')[0]) as HTMLSelectElement;
 
     const newBoardId = +(select[select.selectedIndex] as HTMLOptionElement).value;
-    const taskData = { ...this.taskData };
+    const taskData = {
+      ...this.taskData };
     const boardData = this.boardsList.find(board => board.id === newBoardId);
 
     taskData.column_id = boardData.columns[0].id;

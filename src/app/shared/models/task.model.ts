@@ -20,6 +20,10 @@ export class Task {
               public description: string = '',
               public color: string = '#ffffe0',
               public due_date: string = '', // tslint:disable-line
+              // tslint:disable-next-line:variable-name
+              public creation_date: string = Date.now().toString(),
+              // tslint:disable-next-line:variable-name
+              public finish_date: string = '',
               public points: number = 0,
               public position: number = 0,
               public column_id: number = 0, // tslint:disable-line

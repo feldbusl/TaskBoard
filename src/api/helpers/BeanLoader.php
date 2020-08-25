@@ -160,6 +160,8 @@ class BeanLoader {
       ? $data->description : '';
     $task->color = isset($data->color) ? $data->color : '';
     $task->due_date = isset($data->due_date) ? $data->due_date : '';
+    $task->creation_date = isset($data->creation_date) ? $data->creation_date : '';
+    $task->finish_date = isset($data->finish_date) ? $data->finish_date : '';
     $task->points = isset($data->points) ? $data->points : 0;
     $task->position = isset($data->position) ? $data->position : -1;
     $task->column_id = isset($data->column_id) ? $data->column_id : -1;

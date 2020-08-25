@@ -17,6 +17,8 @@ export class Column {
         task.description,
         task.color,
         task.due_date,
+        task.creation_date,
+        task.finish_date,
         +task.points,
         +task.position,
         +task.column_id,

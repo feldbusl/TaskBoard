@@ -223,6 +223,13 @@
   "boards_sortByPosition": "Position",
   "boards_sortByDueDate": "Fälligkeitsdatum",
   "boards_sortByLastModified": "Letzte Änderung",
-  "boards_sortByPoints": "Punkte"
+  "boards_sortByPoints": "Punkte",
+
+  "dashboard_analytics": "Statistiken",
+  "dashboard_boardsAndTasks": "Boards und Aufgaben",
+  "dashboard_myBoards": "Meine Boards",
+  "dashboard_tasksInCategory": "Aufgabe in Kategorie",
+  "dashboard_myTasks": "Meine Aufgaben",
+  "dashboard_details": "Details"
 }
 

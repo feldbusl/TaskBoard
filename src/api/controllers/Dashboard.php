@@ -44,6 +44,26 @@ class Dashboard extends BaseController {
     return $this->jsonResponse($response);
   }
 
+  public function getBurndownData($request, $response) {
+    $status = $this->secureRoute($request, $response, SecurityLevel::USER);
+    if ($status !== 200) {
+      return $this->jsonResponse($response, $status);
+    }
+
+    $boards = $this->loadAllBoards($request);
+
+    if (!count($boards)) {
+      $this->apiJson->addAlert('info', $this->strings->api_noBoards);
+
+      return $this->jsonResponse($response);
+    }
+
+    $this->apiJson->setSuccess();
+    $this->apiJson->addData($this->convertBurndownData($boards));
+
+    return $this->jsonResponse($response);
+  }
+
   private function convertBoardData($boards) {
     $retVal = [];
 
@@ -114,6 +134,8 @@ class Dashboard extends BaseController {
             "color" => $task["color"],
             "column" => $column["name"],
             "date_due" => $task["due_date"],
+            "creation_date" => $task["creation_date"],
+            "finish_date" => $task["finish_date"],
             "points" => $task["points"],
             "attachments" => $attachments,
             "comments" => $comments
@@ -160,6 +182,29 @@ class Dashboard extends BaseController {
     unset($user->active_token);
 
     return $user;
+  }
+
+  private function convertBurndownData(array $boards)
+  {
+    $retVal = [];
+
+    foreach($boards as $board) {
+      foreach($board["ownColumn"] as $column) {
+        foreach($column["ownTask"] as $task) {
+          $retVal[] = (object)array(
+            "boardId" => $board["id"],
+            "boardName" => $board["name"],
+            "title" => $task["title"],
+            "finished" => ($column["position"] - count($board["ownColumn"]) == -1),
+            "creation_date" => $task["creation_date"],
+            "finish_date" => $task["finish_date"],
+            "points" => $task["points"]
+          );
+        }
+      }
+    }
+
+    return $retVal;
   }
 
 }

@@ -319,8 +319,8 @@ export class ColumnDisplayComponent implements OnInit, OnDestroy {
 
       const newTask = response.data[1][0];
       const updatedTask = new Task(newTask.id, newTask.title, newTask.description,
-                      newTask.color, newTask.due_date, newTask.points,
-                      newTask.position, newTask.column_id, newTask.ownComment,
+                      newTask.color, newTask.due_date, newTask.creation_date, Date.now().toString(),// newTask.finish_date,
+                      newTask.points, newTask.position, newTask.column_id, newTask.ownComment,
                       newTask.ownAttachment, newTask.sharedUser, newTask.sharedCategory);
 
       this.activeBoard.columns[colIndex].tasks[event.currentIndex] = updatedTask;
@@ -617,7 +617,9 @@ export class ColumnDisplayComponent implements OnInit, OnDestroy {
 
     this.modalProps = new Task(editTask.id, editTask.title,
                                editTask.description, editTask.color,
-                               editTask.due_date, editTask.points,
+                               editTask.due_date, editTask.creation_date,
+                               Date.now().toString(),// editTask.finish_date,
+                               editTask.points,
                                editTask.position, editTask.column_id,
                                editTask.comments, editTask.attachments,
                                [], []);
@@ -743,6 +745,8 @@ export class ColumnDisplayComponent implements OnInit, OnDestroy {
                           updatedTask.description,
                           updatedTask.color,
                           updatedTask.due,
+                          updatedTask.creation_date,
+                          Date.now().toString(),// updatedTask.finish_date,
                           updatedTask.points,
                           updatedTask.position,
                           updatedTask.column_id,

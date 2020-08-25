@@ -30,4 +30,12 @@ export class DashboardService extends ApiService {
       catchError((err) => of(err.error as ApiResponse))
     );
   }
+
+  getBurndownData(): Observable<ApiResponse> {
+    return this.http.get(this.apiBase + 'dashboard/burndowndata')
+      .pipe(
+        map((response: ApiResponse) => response),
+        catchError((err) => of(err.error as ApiResponse))
+      );
+  }
 }
