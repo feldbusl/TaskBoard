@@ -102,7 +102,7 @@ describe('Models', () => {
     it('can check for task limit', () => {
       const column = new Column(
         1, '', 1, 1, 1, [{
-          id: 1, title: '', description: '', color: '', due_date: '',
+          id: 1, title: '', description: '', color: '', due_date: '', creation_date: '', finish_date: '',
           points: 1, position: 1, column_id: 1, columns: [], attachments: [],
           assignees: [], categories: []
         }]
@@ -133,7 +133,7 @@ describe('Models', () => {
   describe('Task', () => {
     it('can be constructed with values', () => {
       let task = new Task(
-        1, '', '', '', '', 1, 1, 1,
+        1, '', '', '', '', '', '', 1, 1, 1,
         [{ id: 1, text: '', user_id: 1, task_id: 1, timestamp: '', is_edited: 1 }],
         [{
           id: 1, filename: '', name: '', type: '', user_id: 1,
