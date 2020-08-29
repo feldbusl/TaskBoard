@@ -230,6 +230,10 @@
   "dashboard_myBoards": "Meine Boards",
   "dashboard_tasksInCategory": "Aufgabe in Kategorie",
   "dashboard_myTasks": "Meine Aufgaben",
-  "dashboard_details": "Details"
+  "dashboard_details": "Details",
+  "dashboard_startDate": "Startdatum",
+  "dashboard_endDate": "Enddatum",
+  "dashboard_today": "heute",
+  "dashboard_day": "Tag"
 }
 

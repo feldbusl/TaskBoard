@@ -38,6 +38,11 @@ export const ROUTES: Routes = [
     canActivate: [ AuthGuard ]
   },
   {
+    path: 'dashboard/:boardId',
+    component: DashboardComponent,
+    canActivate: [ AuthGuard ]
+  },
+  {
     path: 'files/:hash',
     component: FileViewerComponent,
     canActivate: [ AuthGuard ]

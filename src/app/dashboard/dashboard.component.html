@@ -12,11 +12,11 @@
 
     <div class="row">
       <select [(ngModel)]="analyticsBoardId" (change)="updateAnalytics()">
-        <option [ngValue]="null">
+        <option [ngValue]="null" selected>
           {{ strings['boards_selectBoard'] }}...
         </option>
 
-        <option *ngFor="let board of boards">
+        <option *ngFor="let board of boards" [ngValue]="board.id">
           {{ board.name }}
         </option>
       </select>
@@ -26,25 +26,25 @@
       <h3>Run-Up chart</h3>
 
       <!--<label class="inline">
-        Start Date:
+        {{ strings['dashboard_startDate'] }}
         <input type="date" [(ngModel)]="burndownDates.start"
                (change)="validateDates()">
       </label>
 
       <label class="inline">
-        End Date:
+        {{ strings['dashboard_endDate'] }}
         <input type="date" [(ngModel)]="burndownDates.end"
                (change)="validateDates()">
       </label>
 
-      <div *ngIf="datesError.length" class="error">{{ datesError }}</div>
+      <div *ngIf="datesError.length" class="error">{{ datesError }}</div>-->
 
-      <div *ngIf="!showBurndown">Select dates to display burndown chart.</div>-->
+      <!--<div *ngIf="!showBurndown">Select dates to display burndown chart.</div>-->
 
       <tb-charts
                  chart-name="chartBurndown" chart-type="line"
-                 series="{{series}}"
-                 labels="{{burndownLabels}}"
+                 series="{{ series }}"
+                 labels="{{ burndownLabels }}"
                  table-head="Date"></tb-charts>
     </div>
 <!--

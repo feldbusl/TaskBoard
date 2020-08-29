@@ -96,4 +96,3 @@ export class ChartsComponent implements AfterViewInit {
     return nums;
   }
 }
-

@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 import { DashboardService } from './dashboard.service';
 import { StringsService } from '../shared/services';
@@ -35,6 +36,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public datesError: string;
   public series: string;
   public burndownLabels: string;
+  public burnDownData: any;
 
   get showBurndown() {
     return this.burndownDates.start &&
@@ -64,12 +66,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.pageName = this.strings.dashboard;
       })
     );
-    this.service.getBurndownData().subscribe(res => {
-      this.series = '29,26,21,18,13,8,3';
-      this.burndownLabels = '1,2,3,4,5,6,7';
-      console.log('BurndownData');
-      console.log(res.data);
-    });
   }
 
   ngOnInit() {
@@ -91,7 +87,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }
 
       this.tasksLoading = false;
-    })
+    });
+
+    this.service.getBurndownData().subscribe(res => {
+      this.burnDownData = res.data[1];
+    });
   }
 
   ngOnDestroy() {
@@ -99,7 +99,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   validateDates() {
-    /*if (this.burndownDates.start === null || this.burndownDates.end === null) {
+    if (this.burndownDates.start === null || this.burndownDates.end === null) {
       return;
     }
     this.datesError = '';
@@ -119,13 +119,49 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.datesError += ' Start date must be today or earlier.';
     }
 
-    if (end > now) {
+    this.updateAnalytics();
+
+    /*if (end > now) {
       this.datesError += ' End date must be today or earlier.';
     }*/
   }
 
   updateAnalytics() {
+    let minDate = '';
+    const maxDate = Date.now().toString();
+    const seriesArray = [];
+    const labelArray = [];
+    this.burnDownData.forEach(burndownTaskData => {
+      // tslint:disable-next-line:triple-equals
+      if (burndownTaskData.boardId == this.analyticsBoardId) {
+        if (minDate === '' || minDate > burndownTaskData.creation_date) {
+          minDate = burndownTaskData.creation_date;
+        }
+      }
+    });
+    // tslint:disable-next-line:radix
+    const days = Math.floor((parseInt(maxDate) - parseInt(minDate)) / 1000 / 60 / 60 / 24);
+    for (let i = 0; i <= days; i++) {
+      labelArray[i] = this.strings.dashboard_day + ' ' + i;
+      if (i === days) {
+        labelArray[i] = this.strings.dashboard_today;
+      }
+      seriesArray[i] = 0;
+      this.burnDownData.forEach(burndownTaskData => {
+        // tslint:disable-next-line:triple-equals radix
+        if (parseInt(minDate) + i*1000*60*60*24 >= burndownTaskData.creation_date
+            // tslint:disable-next-line:triple-equals radix
+            && ((parseInt(minDate) + (i+1)*1000*60*60*24 < burndownTaskData.finish_date
+                || burndownTaskData.finish_date === '')
+                || !burndownTaskData.finished)){
+          // tslint:disable-next-line:radix
+          seriesArray[i] += parseInt(burndownTaskData.points);
+        }
+      });
+    }
 
+    this.series = seriesArray.toString();
+    this.burndownLabels = labelArray.toString();
   }
 }
 

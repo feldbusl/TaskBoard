@@ -230,6 +230,10 @@
   "dashboard_myTasks": "My Tasks",
   "dashboard_tasksInCategory": "Tasks In Category",
   "dashboard_details": "Details",
-  "dashboard_analytics": "Analytics"
+  "dashboard_analytics": "Analytics",
+  "dashboard_startDate": "Start Date",
+  "dashboard_endDate": "End Date",
+  "dashboard_today": "today",
+  "dashboard_day": "day"
 }
 

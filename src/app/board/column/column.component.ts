@@ -304,6 +304,7 @@ export class ColumnDisplayComponent implements OnInit, OnDestroy {
     });
 
     const task = this.activeBoard.columns[colIndex].tasks[event.currentIndex];
+    task.finish_date = Date.now().toString();
     this.boardService.updateTask(task).subscribe((response: ApiResponse) => {
       response.alerts.forEach(alert => {
         if (alert.type === 'success') {
@@ -319,7 +320,7 @@ export class ColumnDisplayComponent implements OnInit, OnDestroy {
 
       const newTask = response.data[1][0];
       const updatedTask = new Task(newTask.id, newTask.title, newTask.description,
-                      newTask.color, newTask.due_date, newTask.creation_date, Date.now().toString(),// newTask.finish_date,
+                      newTask.color, newTask.due_date, newTask.creation_date, newTask.finish_date,
                       newTask.points, newTask.position, newTask.column_id, newTask.ownComment,
                       newTask.ownAttachment, newTask.sharedUser, newTask.sharedCategory);
 
